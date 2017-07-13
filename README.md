@@ -1,5 +1,4 @@
-[![Release](https://jitpack.io/v/trinhlbk1991/Notifierce.svg)]
-(https://jitpack.io/#trinhlbk1991/Notifierce)
+[![Release](https://jitpack.io/v/trinhlbk1991/Notifierce.svg)](https://jitpack.io/#trinhlbk1991/Notifierce)
 
 # Notifierce
 A fierce notification library for Android
