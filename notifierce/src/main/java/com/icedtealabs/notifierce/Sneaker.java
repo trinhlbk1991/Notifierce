@@ -1,4 +1,4 @@
-package com.irozon.sneaker;
+package com.icedtealabs.notifierce;
 
 import android.app.Activity;
 import android.content.Context;
@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 

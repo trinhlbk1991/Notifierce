@@ -1,4 +1,4 @@
-package com.irozon.sneakersample;
+package com.icedtealabs.sneakersample;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

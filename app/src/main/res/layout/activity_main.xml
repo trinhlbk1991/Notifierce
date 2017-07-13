@@ -7,7 +7,7 @@
     android:layout_marginStart="16dp"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context="com.irozon.sneakersample.MainActivity">
+    tools:context="com.icedtealabs.sneakersample.MainActivity">
 
     <Button
         android:id="@+id/btShowError"

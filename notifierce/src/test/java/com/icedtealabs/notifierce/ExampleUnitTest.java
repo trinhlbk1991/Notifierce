@@ -1,4 +1,4 @@
-package com.irozon.sneaker;
+package com.icedtealabs.notifierce;
 
 import org.junit.Test;
 

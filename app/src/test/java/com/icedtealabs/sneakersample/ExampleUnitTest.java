@@ -1,4 +1,4 @@
-package com.irozon.sneakersample;
+package com.icedtealabs.sneakersample;
 
 import org.junit.Test;
 
