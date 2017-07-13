@@ -3,28 +3,28 @@
 # Notifierce
 A fierce notification library for Android
 
-#Download
+# Download
 
 1. Add the JitPack repository to your build file
 
 ```
 allprojects {
-		repositories {
-			...
-			maven { url 'https://jitpack.io' }
-		}
-	}
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+    }
+}
 ```
 
 2. Add the dependency
 
 ```
-	dependencies {
-	        compile 'com.github.trinhlbk1991:Notifierce:1.0.0'
-	}
+dependencies {
+    compile 'com.github.trinhlbk1991:Notifierce:1.0.0'
+}
 ```
 
-#Usage
+# Usage
 
 Custom:
 
