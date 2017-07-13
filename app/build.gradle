@@ -26,7 +26,7 @@ android {
 }
 
 dependencies {
-    compile project(':notifierce')
+    compile 'com.github.trinhlbk1991:Notifierce:v1.0.0'
 
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
