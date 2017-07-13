@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import com.icedtealabs.notifierce.Sneaker;
+import com.icedtealabs.notifierce.Notifierce;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -32,23 +32,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btShowError:
-                Sneaker.with(this)
+                Notifierce.builder(this)
                         .setTitle("Error!!")
                         .setMessage("This is the error message")
                         .setTypeface(Typeface.createFromAsset(this.getAssets(), "font/" + "Slabo27px-Regular.ttf"))
-                        .sneakError();
+                        .build()
+                        .error();
                 break;
             case R.id.btShowSuccess:
-                Sneaker.with(this)
+                Notifierce.builder(this)
                         .setTitle("Success!!")
                         .setMessage("This is the success message")
-                        .sneakSuccess();
+                        .build()
+                        .success();
                 break;
             case R.id.btShowWarning:
-                Sneaker.with(this)
+                Notifierce.builder(this)
                         .setTitle("Warning!!")
                         .setMessage("This is the warning message")
-                        .sneakWarning();
+                        .build()
+                        .warning();
                 break;
         }
     }

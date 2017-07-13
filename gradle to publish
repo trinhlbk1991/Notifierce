@@ -2,11 +2,11 @@ apply plugin: 'com.android.library'
 
 ext {
     bintrayRepo = 'maven'
-    bintrayName = 'sneaker'   // Has to be same as your library module name
+    bintrayName = 'notifierce'   // Has to be same as your library module name
 
-    publishedGroupId = 'com.irozon.sneaker'
-    libraryName = 'sneaker'
-    artifact = 'sneaker'     // Has to be same as your library module name
+    publishedGroupId = 'com.irozon.notifierce'
+    libraryName = 'notifierce'
+    artifact = 'notifierce'     // Has to be same as your library module name
 
     libraryDescription = 'A lightweight Android library for customizable alerts'
 
