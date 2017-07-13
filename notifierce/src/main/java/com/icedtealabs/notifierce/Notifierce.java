@@ -2,7 +2,6 @@ package com.icedtealabs.notifierce;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.os.Build;
@@ -20,6 +19,7 @@ import android.widget.TextView;
 import java.lang.ref.WeakReference;
 
 import static android.view.animation.AnimationUtils.loadAnimation;
+import static com.icedtealabs.notifierce.Notifierce.Builder.getColor;
 
 public class Notifierce implements View.OnClickListener {
 
@@ -179,30 +179,33 @@ public class Notifierce implements View.OnClickListener {
     }
 
     public void warning() {
-        backgroundColor = Color.parseColor("#ffc100");
-        titleColor = Color.parseColor("#000000");
-        messageColor = Color.parseColor("#000000");
-        iconTintColor = Color.parseColor("#000000");
+        Activity activity = getActivity();
+        backgroundColor = getColor(activity, R.color.notifierce_warning);
+        titleColor = getColor(activity, R.color.notifierce_white);
+        messageColor = getColor(activity, R.color.notifierce_white);
+        iconTintColor = getColor(activity, R.color.notifierce_white);
         icon = R.drawable.ic_warning;
 
         show();
     }
 
     public void error() {
-        backgroundColor = Color.parseColor("#ff0000");
-        titleColor = Color.parseColor("#FFFFFF");
-        messageColor = Color.parseColor("#FFFFFF");
-        iconTintColor = Color.parseColor("#FFFFFF");
+        Activity activity = getActivity();
+        backgroundColor = getColor(activity, R.color.notifierce_error);
+        titleColor = getColor(activity, R.color.notifierce_white);
+        messageColor = getColor(activity, R.color.notifierce_white);
+        iconTintColor = getColor(activity, R.color.notifierce_white);
         icon = R.drawable.ic_error;
 
         show();
     }
 
     public void success() {
-        backgroundColor = Color.parseColor("#2bb600");
-        titleColor = Color.parseColor("#FFFFFF");
-        messageColor = Color.parseColor("#FFFFFF");
-        iconTintColor = Color.parseColor("#FFFFFF");
+        Activity activity = getActivity();
+        backgroundColor = getColor(activity, R.color.notifierce_succeed);
+        titleColor = getColor(activity, R.color.notifierce_white);
+        messageColor = getColor(activity, R.color.notifierce_white);
+        iconTintColor = getColor(activity, R.color.notifierce_white);
         icon = R.drawable.ic_success;
         show();
     }
@@ -332,13 +335,7 @@ public class Notifierce implements View.OnClickListener {
         }
 
         public Builder setTitleColor(int color) {
-            if (activity != null) {
-                try {
-                    titleColor = ContextCompat.getColor(activity, color);
-                } catch (Exception e) {
-                    titleColor = color;
-                }
-            }
+            titleColor = getColor(activity, color);
             return this;
         }
 
@@ -348,13 +345,7 @@ public class Notifierce implements View.OnClickListener {
         }
 
         public Builder setMessageColor(int color) {
-            if (activity != null) {
-                try {
-                    messageColor = ContextCompat.getColor(activity, color);
-                } catch (Exception e) {
-                    messageColor = color;
-                }
-            }
+            messageColor = getColor(activity, color);
             return this;
         }
 
@@ -369,24 +360,12 @@ public class Notifierce implements View.OnClickListener {
         }
 
         public Builder setIconColor(int color) {
-            if (activity != null) {
-                try {
-                    iconColor = ContextCompat.getColor(activity, color);
-                } catch (Exception e) {
-                    iconColor = color;
-                }
-            }
+            iconColor = getColor(activity, color);
             return this;
         }
 
         public Builder setBackgroundColor(int color) {
-            if (activity != null) {
-                try {
-                    backgroundColor = ContextCompat.getColor(activity, color);
-                } catch (Exception e) {
-                    backgroundColor = color;
-                }
-            }
+            backgroundColor = getColor(activity, color);
             return this;
         }
 
@@ -414,6 +393,17 @@ public class Notifierce implements View.OnClickListener {
         public Builder setTypeface(Typeface typeface) {
             this.typeface = typeface;
             return this;
+        }
+
+        static int getColor(Activity activity, int color) {
+            if (activity != null) {
+                try {
+                    return ContextCompat.getColor(activity, color);
+                } catch (Exception e) {
+                    return color;
+                }
+            }
+            return color;
         }
 
     }

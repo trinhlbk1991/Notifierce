@@ -26,8 +26,8 @@ android {
 }
 
 dependencies {
+    compile project(':notifierce')
     compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.github.trinhlbk1991:Notifierce:1.0.0'
 
     testCompile 'junit:junit:4.12'
 
