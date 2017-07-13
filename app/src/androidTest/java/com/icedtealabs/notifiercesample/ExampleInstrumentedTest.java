@@ -1,4 +1,4 @@
-package com.icedtealabs.sneakersample;
+package com.icedtealabs.notifiercesample;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

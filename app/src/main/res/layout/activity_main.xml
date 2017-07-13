@@ -7,24 +7,29 @@
     android:layout_marginStart="16dp"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context="com.icedtealabs.sneakersample.MainActivity">
+    tools:context="com.icedtealabs.notifiercesample.MainActivity">
 
     <Button
-        android:id="@+id/btShowError"
+        android:id="@+id/btn_show_error"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Show Error" />
 
     <Button
-        android:id="@+id/btShowSuccess"
+        android:id="@+id/btn_show_success"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Show Success" />
 
     <Button
-        android:id="@+id/btShowWarning"
+        android:id="@+id/btn_show_warning"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Show Warning" />
 
+    <Button
+        android:id="@+id/btn_show_custom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Show Custom" />
 </LinearLayout>
