@@ -20,7 +20,7 @@ allprojects {
 
 ```
 dependencies {
-    compile 'com.github.trinhlbk1991:Notifierce:1.0.0'
+    compile 'com.github.trinhlbk1991:Notifierce:{version}'
 }
 ```
 
