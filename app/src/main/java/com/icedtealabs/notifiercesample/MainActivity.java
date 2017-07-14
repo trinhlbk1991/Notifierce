@@ -60,11 +60,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btn_show_custom:
                 Notifierce.builder(this)
                         .setTitle("Notifierce")
-                        .setTitleColor(Color.BLUE)
+                        .setTitleColor(R.color.colorPrimary)
                         .setMessage("Welcome to Iced Tea Labs")
-                        .setMessageColor(Color.WHITE)
-                        .setBackgroundColor(Color.GRAY)
-                        .setIcon(R.mipmap.ic_launcher)
+                        .setMessageColor(R.color.notifierce_white)
+                        .setBackgroundColor(R.color.colorAccent)
+                        .setIcon(R.drawable.ic_notifierce)
+                        .setIconColor(R.color.notifierce_white)
                         .autoHide(false)
                         .build()
                         .show();
