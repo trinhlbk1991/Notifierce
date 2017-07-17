@@ -66,11 +66,7 @@ public class Notifierce implements View.OnClickListener {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    View layout = getLayout();
-                    if (layout != null) {
-                        layout.startAnimation(loadAnimation(activity, R.anim.popup_hide));
-                        viewGroup.removeView(layout);
-                    }
+                    hide();
                 }
             }, duration);
         }
@@ -93,7 +89,6 @@ public class Notifierce implements View.OnClickListener {
         messageColor = getColor(activity, R.color.notifierce_white);
         iconTintColor = getColor(activity, R.color.notifierce_white);
         icon = R.drawable.ic_warning;
-
         show();
     }
 
@@ -104,7 +99,6 @@ public class Notifierce implements View.OnClickListener {
         messageColor = getColor(activity, R.color.notifierce_white);
         iconTintColor = getColor(activity, R.color.notifierce_white);
         icon = R.drawable.ic_error;
-
         show();
     }
 
