@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="notifierce_default">#bfbfbf</color>
     <color name="notifierce_info">#00838F</color>
     <color name="notifierce_error">#C62828</color>
     <color name="notifierce_succeed">#33691E</color>
     <color name="notifierce_warning">#FBC02D</color>
     <color name="notifierce_white">#FFFFFF</color>
+    <color name="notifierce_text_color">#37474F</color>
 </resources>

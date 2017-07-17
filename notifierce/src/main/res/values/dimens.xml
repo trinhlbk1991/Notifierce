@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="notifierce_icon_size">24dp</dimen>
+    <dimen name="notifierce_title_font_size">16sp</dimen>
+    <dimen name="notifierce_message_font_size">14sp</dimen>
+    <dimen name="notifierce_horizontal_padding">24dp</dimen>
+    <dimen name="notifierce_vertical_padding">16dp</dimen>
+    <dimen name="notifierce_icon_margin">16dp</dimen>
+    <dimen name="notifierce_icon_margin_top">6dp</dimen>
+</resources>

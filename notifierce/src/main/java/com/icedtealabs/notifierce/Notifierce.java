@@ -2,19 +2,16 @@ package com.icedtealabs.notifierce;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.Typeface;
-import android.os.Build;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.AppCompatImageView;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
 
@@ -36,7 +33,7 @@ public class Notifierce implements View.OnClickListener {
     private int messageColor;
     private boolean autoHide;
     private int duration;
-    private WeakReference<LinearLayout> layoutWeakReference;
+    private WeakReference<NotifierceView> layoutWeakReference;
     private WeakReference<Activity> activityWeakReference;
     private boolean isCircular;
     private OnSneakerClickListener listener = null;
@@ -56,102 +53,15 @@ public class Notifierce implements View.OnClickListener {
             return;
         }
 
-        LinearLayout layout = new LinearLayout(activity);
-        layoutWeakReference = new WeakReference<>(layout);
-
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height == DEFAULT_VALUE ? (getStatusBarHeight() + convertToDp(56)) : convertToDp(height));
-        layout.setLayoutParams(layoutParams);
-        layout.setOrientation(LinearLayout.HORIZONTAL);
-        layout.setGravity(Gravity.CENTER_VERTICAL);
-        layout.setPadding(46, getStatusBarHeight(), 46, 0);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            layout.setElevation(6);
-        }
-
-        layout.setBackgroundColor(backgroundColor);
-
-        if (icon != DEFAULT_VALUE) {
-            if (!isCircular) {
-                AppCompatImageView ivIcon = new AppCompatImageView(activity);
-                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(convertToDp(24), convertToDp(24));
-                ivIcon.setLayoutParams(lp);
-
-                ivIcon.setImageResource(icon);
-                ivIcon.setClickable(false);
-                if (iconTintColor != DEFAULT_VALUE) {
-                    ivIcon.setColorFilter(iconTintColor);
-                }
-                layout.addView(ivIcon);
-            } else {
-                RoundedImageView ivIcon = new RoundedImageView(activity);
-                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(convertToDp(24), convertToDp(24));
-                ivIcon.setLayoutParams(lp);
-
-                ivIcon.setImageResource(icon);
-                ivIcon.setClickable(false);
-                if (iconTintColor != DEFAULT_VALUE) {
-                    ivIcon.setColorFilter(iconTintColor);
-                }
-                layout.addView(ivIcon);
-            }
-        }
-
-        LinearLayout textLayout = new LinearLayout(activity);
-        LinearLayout.LayoutParams textLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        textLayout.setLayoutParams(textLayoutParams);
-        textLayout.setOrientation(LinearLayout.VERTICAL);
-
-        LinearLayout.LayoutParams lpTv = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        if (!title.isEmpty()) {
-            TextView tvTitle = new TextView(activity);
-            tvTitle.setLayoutParams(lpTv);
-            tvTitle.setGravity(Gravity.CENTER_VERTICAL);
-            if (!message.isEmpty())
-                tvTitle.setPadding(46, 26, 26, 0); // Top padding if there is message
-            else
-                tvTitle.setPadding(46, 0, 26, 0); // No top padding if there is no message
-            if (titleColor != DEFAULT_VALUE)
-                tvTitle.setTextColor(titleColor);
-
-            if (typeface != null)
-                tvTitle.setTypeface(typeface);
-
-            tvTitle.setTextSize(14);
-            tvTitle.setText(title);
-            tvTitle.setClickable(false);
-            textLayout.addView(tvTitle);
-        }
-
-        if (!message.isEmpty()) {
-            TextView tvMessage = new TextView(activity);
-            tvMessage.setLayoutParams(lpTv);
-            tvMessage.setGravity(Gravity.CENTER_VERTICAL);
-            if (!title.isEmpty())
-                tvMessage.setPadding(46, 0, 26, 26); // Bottom padding if there is title
-            else
-                tvMessage.setPadding(46, 0, 26, 0); // No bottom padding if there is no title
-            if (messageColor != DEFAULT_VALUE)
-                tvMessage.setTextColor(messageColor);
-
-            if (typeface != null)
-                tvMessage.setTypeface(typeface);
-
-            tvMessage.setTextSize(12);
-            tvMessage.setText(message);
-            tvMessage.setClickable(false);
-            textLayout.addView(tvMessage);
-        }
-        layout.addView(textLayout);
-        layout.setId(R.id.mainLayout);
-
+        NotifierceView notifierceView = createNotifierceView(activity);
+        layoutWeakReference = new WeakReference<>(notifierceView);
 
         final ViewGroup viewGroup = getActivityDecorView();
         getExistingOverlayInViewAndRemove(viewGroup);
+        viewGroup.addView(notifierceView);
+        notifierceView.setOnClickListener(this);
 
-        layout.setOnClickListener(this);
-        viewGroup.addView(layout);
-
-        layout.startAnimation(loadAnimation(activity, R.anim.popup_show));
+        notifierceView.startAnimation(loadAnimation(activity, R.anim.popup_show));
         if (autoHide) {
             Handler handler = new Handler();
             handler.removeCallbacks(null);
@@ -210,7 +120,6 @@ public class Notifierce implements View.OnClickListener {
         show();
     }
 
-
     @Override
     public void onClick(View view) {
         if (listener != null) {
@@ -244,9 +153,7 @@ public class Notifierce implements View.OnClickListener {
     }
 
     private void getExistingOverlayInViewAndRemove(ViewGroup parent) {
-
         for (int i = 0; i < parent.getChildCount(); i++) {
-
             View child = parent.getChildAt(i);
             if (child.getId() == R.id.mainLayout) {
                 parent.removeView(child);
@@ -257,8 +164,7 @@ public class Notifierce implements View.OnClickListener {
         }
     }
 
-    private int getStatusBarHeight() {
-        Activity activity = getActivity();
+    private static int getStatusBarHeight(Activity activity) {
         int statusBarHeight = 0;
         if (activity != null) {
             Rect rectangle = new Rect();
@@ -270,8 +176,7 @@ public class Notifierce implements View.OnClickListener {
         return statusBarHeight;
     }
 
-    private int convertToDp(float sizeInDp) {
-        Activity activity = getActivity();
+    private static int convertToDp(Activity activity, float sizeInDp) {
         float scale = 1.0f;
         if (activity != null) {
             scale = activity.getResources().getDisplayMetrics().density;
@@ -279,29 +184,59 @@ public class Notifierce implements View.OnClickListener {
         return (int) (sizeInDp * scale + 0.5f);
     }
 
+    private NotifierceView createNotifierceView(Activity activity) {
+        NotifierceView notifierceView = new NotifierceView(activity);
+        notifierceView.setId(R.id.mainLayout);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height);
+        notifierceView.setLayoutParams(layoutParams);
+
+        notifierceView.setTitle(title);
+        notifierceView.setMessage(message);
+        notifierceView.setTypeface(typeface);
+        notifierceView.setBackgroundColor(backgroundColor);
+        notifierceView.setTitleColor(titleColor);
+        notifierceView.setMessageColor(messageColor);
+        notifierceView.setIconTintColor(iconTintColor);
+
+        if (icon != DEFAULT_VALUE) {
+            notifierceView.setIcon(icon);
+        }
+        return notifierceView;
+    }
+
     public interface OnSneakerClickListener {
         void onSneakerClick(View view);
     }
 
     public static class Builder {
-
         private Activity activity;
-        private String title = "";
-        private int titleColor = DEFAULT_VALUE;
-        private String message = "";
-        private int messageColor = DEFAULT_VALUE;
-        private int icon = DEFAULT_VALUE;
-        private boolean isCircular = false;
-        private int iconColor = DEFAULT_VALUE;
-        private int backgroundColor = DEFAULT_VALUE;
-        private boolean autoHide = true;
-        private int height = DEFAULT_VALUE;
-        private int duration = DEFAULT_DURATION;
+        private String title;
+        private int titleColor;
+        private String message;
+        private int messageColor;
+        private int icon;
+        private boolean isCircular;
+        private int iconColor;
+        private int backgroundColor;
+        private boolean autoHide;
+        private int height;
+        private int duration;
         private OnSneakerClickListener listener = null;
         private Typeface typeface = null;
 
         private Builder(@NonNull Activity activity) {
             this.activity = activity;
+            this.title = "";
+            this.titleColor = getColor(activity, R.color.notifierce_text_color);
+            this.message = "";
+            this.messageColor = getColor(activity, R.color.notifierce_text_color);
+            this.icon = DEFAULT_VALUE;
+            this.iconColor = Color.TRANSPARENT;
+            this.isCircular = false;
+            this.backgroundColor = getColor(activity, R.color.notifierce_default);
+            this.autoHide = true;
+            this.height = getStatusBarHeight(activity) + convertToDp(activity, 56);
+            this.duration = DEFAULT_DURATION;
         }
 
         public Notifierce build() {
@@ -375,10 +310,9 @@ public class Notifierce implements View.OnClickListener {
         }
 
         public Builder setHeight(int height) {
-            this.height = height;
+            this.height = convertToDp(activity, height);
             return this;
         }
-
 
         public Builder setDuration(int duration) {
             this.duration = duration;
@@ -405,7 +339,5 @@ public class Notifierce implements View.OnClickListener {
             }
             return color;
         }
-
     }
-
 }

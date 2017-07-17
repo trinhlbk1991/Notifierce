@@ -13,10 +13,6 @@ import android.graphics.drawable.Drawable;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 
-/**
- * Created by dell on 5/25/2017.
- */
-
 public class RoundedImageView extends AppCompatImageView {
 
     public RoundedImageView(Context context) {
@@ -52,7 +48,6 @@ public class RoundedImageView extends AppCompatImageView {
 
         Bitmap roundBitmap = getCroppedBitmap(bitmap, w);
         canvas.drawBitmap(roundBitmap, 0, 0, null);
-
     }
 
     public static Bitmap drawableToBitmap(Drawable drawable) {
