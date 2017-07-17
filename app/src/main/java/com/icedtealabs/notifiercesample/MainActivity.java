@@ -1,6 +1,5 @@
 package com.icedtealabs.notifiercesample;
 
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
