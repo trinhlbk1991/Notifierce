@@ -3,6 +3,9 @@
 # Notifierce
 A fierce notification library for Android
 
+<img src="https://raw.githubusercontent.com/trinhlbk1991/Notifierce/master/images/sample-error.png" width="250px"><img src="https://raw.githubusercontent.com/trinhlbk1991/Notifierce/master/images/sample-success.png" width="250px">
+
+
 # Download
 
 1. Add the JitPack repository to your build file
