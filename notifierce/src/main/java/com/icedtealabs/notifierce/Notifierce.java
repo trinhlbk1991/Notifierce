@@ -16,7 +16,6 @@ import android.widget.LinearLayout;
 import java.lang.ref.WeakReference;
 
 import static android.view.animation.AnimationUtils.loadAnimation;
-import static com.icedtealabs.notifierce.Notifierce.Builder.getColor;
 
 public class Notifierce implements View.OnClickListener {
 
@@ -59,7 +58,6 @@ public class Notifierce implements View.OnClickListener {
         final ViewGroup viewGroup = getActivityDecorView();
         getExistingOverlayInViewAndRemove(viewGroup);
         viewGroup.addView(notifierceView);
-        notifierceView.setOnClickListener(this);
 
         notifierceView.startAnimation(loadAnimation(activity, R.anim.popup_show));
         if (autoHide) {
@@ -152,16 +150,40 @@ public class Notifierce implements View.OnClickListener {
         return layoutWeakReference.get();
     }
 
+    private NotifierceView createNotifierceView(Activity activity) {
+        NotifierceView notifierceView = new NotifierceView(activity);
+        notifierceView.setId(R.id.main_layout);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height);
+        notifierceView.setLayoutParams(layoutParams);
+
+        notifierceView.setTitle(title);
+        notifierceView.setMessage(message);
+        notifierceView.setTypeface(typeface);
+        notifierceView.setBackgroundColor(backgroundColor);
+        notifierceView.setTitleColor(titleColor);
+        notifierceView.setMessageColor(messageColor);
+        notifierceView.setIconTintColor(iconTintColor);
+        if (icon != DEFAULT_VALUE) {
+            notifierceView.setIcon(icon);
+        }
+        notifierceView.setOnClickListener(this);
+        return notifierceView;
+    }
+
     private void getExistingOverlayInViewAndRemove(ViewGroup parent) {
         for (int i = 0; i < parent.getChildCount(); i++) {
             View child = parent.getChildAt(i);
-            if (child.getId() == R.id.mainLayout) {
+            if (child.getId() == R.id.main_layout) {
                 parent.removeView(child);
             }
             if (child instanceof ViewGroup) {
                 getExistingOverlayInViewAndRemove((ViewGroup) child);
             }
         }
+    }
+
+    public interface OnSneakerClickListener {
+        void onSneakerClick(View view);
     }
 
     private static int getStatusBarHeight(Activity activity) {
@@ -184,28 +206,15 @@ public class Notifierce implements View.OnClickListener {
         return (int) (sizeInDp * scale + 0.5f);
     }
 
-    private NotifierceView createNotifierceView(Activity activity) {
-        NotifierceView notifierceView = new NotifierceView(activity);
-        notifierceView.setId(R.id.mainLayout);
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height);
-        notifierceView.setLayoutParams(layoutParams);
-
-        notifierceView.setTitle(title);
-        notifierceView.setMessage(message);
-        notifierceView.setTypeface(typeface);
-        notifierceView.setBackgroundColor(backgroundColor);
-        notifierceView.setTitleColor(titleColor);
-        notifierceView.setMessageColor(messageColor);
-        notifierceView.setIconTintColor(iconTintColor);
-
-        if (icon != DEFAULT_VALUE) {
-            notifierceView.setIcon(icon);
+    private static int getColor(Activity activity, int color) {
+        if (activity != null) {
+            try {
+                return ContextCompat.getColor(activity, color);
+            } catch (Exception e) {
+                return color;
+            }
         }
-        return notifierceView;
-    }
-
-    public interface OnSneakerClickListener {
-        void onSneakerClick(View view);
+        return color;
     }
 
     public static class Builder {
@@ -329,15 +338,5 @@ public class Notifierce implements View.OnClickListener {
             return this;
         }
 
-        static int getColor(Activity activity, int color) {
-            if (activity != null) {
-                try {
-                    return ContextCompat.getColor(activity, color);
-                } catch (Exception e) {
-                    return color;
-                }
-            }
-            return color;
-        }
     }
 }
