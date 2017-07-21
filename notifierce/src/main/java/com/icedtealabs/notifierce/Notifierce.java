@@ -147,8 +147,9 @@ public class Notifierce implements View.OnClickListener {
     private NotifierceView createNotifierceView(Activity activity) {
         NotifierceView notifierceView = new NotifierceView(activity);
         notifierceView.setId(R.id.main_layout);
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         notifierceView.setLayoutParams(layoutParams);
+        notifierceView.setMinimumHeight(height);
 
         notifierceView.setTitle(title);
         notifierceView.setMessage(message);

@@ -2,11 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/notifierce_root"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="horizontal"
     android:paddingBottom="@dimen/notifierce_vertical_padding"
     android:paddingLeft="@dimen/notifierce_horizontal_padding"
     android:paddingRight="@dimen/notifierce_horizontal_padding"
+    android:gravity="center_vertical"
     android:paddingTop="@dimen/notifierce_vertical_padding">
 
     <com.icedtealabs.notifierce.RoundedImageView
@@ -35,6 +36,7 @@
             android:id="@+id/tv_notifierce_message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/notifierce_spacing_tiny"
             android:text="Message"
             android:textSize="@dimen/notifierce_message_font_size" />
 

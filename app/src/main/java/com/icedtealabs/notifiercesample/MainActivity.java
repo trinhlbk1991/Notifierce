@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn_show_success:
                 Notifierce.builder(this)
-                        .setTitle("Success")
                         .setMessage("This is the success message")
                         .build()
                         .success();

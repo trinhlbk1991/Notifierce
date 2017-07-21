@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="notifierce_spacing_tiny">4dp</dimen>
     <dimen name="notifierce_icon_size">24dp</dimen>
     <dimen name="notifierce_title_font_size">16sp</dimen>
     <dimen name="notifierce_message_font_size">14sp</dimen>
